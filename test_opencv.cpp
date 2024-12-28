@@ -18,24 +18,24 @@ int main(int argc, char** argv)
     string outputImagePath = argv[2];
 
     // 加载输入图片
-    Mat inputImage = imread(inputImagePath, IMREAD_COLOR);
-    if (inputImage.empty()) {
-        cerr << "Could not open or find the image: " << inputImagePath << endl;
-        return -1;
-    }
+    // Mat inputImage = imread(inputImagePath, IMREAD_COLOR);
+    // if (inputImage.empty()) {
+    //     cerr << "Could not open or find the image: " << inputImagePath << endl;
+    //     return -1;
+    // }
 
-    // 进行简单的图像处理：高斯模糊
-    Mat outputImage;
-    GaussianBlur(inputImage, outputImage, Size(15, 15), 0);
+    // // 进行简单的图像处理：高斯模糊
+    // Mat outputImage;
+    // GaussianBlur(inputImage, outputImage, Size(15, 15), 0);
 
-    // 保存输出图片
-    bool isSuccess = imwrite(outputImagePath, outputImage);
-    if (!isSuccess) {
-        cerr << "Failed to save the output image: " << outputImagePath << endl;
-        return -1;
-    }
+    // // 保存输出图片
+    // bool isSuccess = imwrite(outputImagePath, outputImage);
+    // if (!isSuccess) {
+    //     cerr << "Failed to save the output image: " << outputImagePath << endl;
+    //     return -1;
+    // }
 
-    cout << "Image processed successfully and saved to: " << outputImagePath << endl;
+    // cout << "Image processed successfully and saved to: " << outputImagePath << endl;
 
-    return 0;
+    // return 0;
 }
