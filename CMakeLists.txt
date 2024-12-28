@@ -9,8 +9,8 @@ SET(CMAKE_CXX_COMPILER /home/share/jenkins_home/workspace/J148/arm-gnu-toolchain
 
 
 # 设置opencv路径
-SET(OpenCV_LIBS  /home/share/jenkins_home/workspace/J148/opencv/lib/)
-SET(OpenCV_INCLUDE_DIRS /home/share/jenkins_home/workspace/J148/opencv/include/opencv4/) 
+SET(OpenCV_LIBS  /home/share/jenkins_home/workspace/J148/install_on/lib/)
+SET(OpenCV_INCLUDE_DIRS /home/share/jenkins_home/workspace/J148/install_on/include/opencv4/) 
 
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s -O3")
@@ -30,9 +30,9 @@ ADD_EXECUTABLE(test_opencv_t1 test_opencv.cpp)
 
 # 设置lib绝对路径库链接
 link_directories(${OpenCV_LIBS})
-target_link_libraries(test_opencv_t1 /home/share/jenkins_home/workspace/J148/opencv/lib/libopencv_core.a
-                                     /home/share/jenkins_home/workspace/J148/opencv/lib/libopencv_imgproc.a
-                                     /home/share/jenkins_home/workspace/J148/opencv/lib/libopencv_highgui.a
-                                     /home/share/jenkins_home/workspace/J148/opencv/lib/libopencv_imgcodecs.a
+target_link_libraries(test_opencv_t1 /home/share/jenkins_home/workspace/J148/install_on/lib/libopencv_core.a
+                                     /home/share/jenkins_home/workspace/J148/install_on/lib/libopencv_imgproc.a
+                                     /home/share/jenkins_home/workspace/J148/install_on/lib/libopencv_highgui.a
+                                     /home/share/jenkins_home/workspace/J148/install_on/lib/libopencv_imgcodecs.a
 
 )
