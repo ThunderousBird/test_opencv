@@ -25,15 +25,15 @@ int main(int argc, char** argv)
     }
 
     // 进行简单的图像处理：高斯模糊
-    Mat outputImage;
-    GaussianBlur(inputImage, outputImage, Size(15, 15), 0);
+    // Mat outputImage;
+    // GaussianBlur(inputImage, outputImage, Size(15, 15), 0);
 
-    // 保存输出图片
-    bool isSuccess = imwrite(outputImagePath, outputImage);
-    if (!isSuccess) {
-        cerr << "Failed to save the output image: " << outputImagePath << endl;
-        return -1;
-    }
+    // // 保存输出图片
+    // bool isSuccess = imwrite(outputImagePath, outputImage);
+    // if (!isSuccess) {
+    //     cerr << "Failed to save the output image: " << outputImagePath << endl;
+    //     return -1;
+    // }
 
     cout << "Image processed successfully and saved to: " << outputImagePath << endl;
 
