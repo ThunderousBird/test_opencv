@@ -21,7 +21,7 @@ int main() {
 
     // 显示原始图像（可选，测试时可以注释掉）
     // imshow("Original Image", image);
-    waitKey(1);
+    // waitKey(1);
 
     // 测量图像处理的时间
     auto start_time = high_resolution_clock::now();
@@ -51,8 +51,8 @@ int main() {
     cout << "Total Processing Time: " << duration.count() << " ms" << endl;
 
     // 显示最终结果（可选，测试时可以注释掉）
-    imshow("Processed Image", eroded_image);
-    waitKey(0);
+    // imshow("Processed Image", eroded_image);
+    // waitKey(0);
 
     return 0;
 }
