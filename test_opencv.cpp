@@ -1,41 +1,58 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
-#include <string>
+#include <chrono>
 
 using namespace cv;
 using namespace std;
+using namespace chrono;
 
-int main(int argc, char** argv)
-{
-    // 确保命令行参数正确
-    if (argc != 3) {
-        cerr << "Usage: " << argv[0] << " <input_image_path> <output_image_path>" << endl;
-        return -1;
+int main() {
+    // 生成一个简单的图像（黑白渐变图像）
+    int width = 1920;  // 图像宽度
+    int height = 1080; // 图像高度
+    Mat image(height, width, CV_8UC1);
+
+    // 填充图像（黑白渐变）
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            image.at<uchar>(y, x) = static_cast<uchar>((x + y) % 256); // 渐变效果
+        }
     }
 
-    // 获取命令行参数：输入图片路径和输出图片路径
-    string inputImagePath = argv[1];
-    string outputImagePath = argv[2];
+    // 显示原始图像（可选，测试时可以注释掉）
+    // imshow("Original Image", image);
+    waitKey(1);
 
-    // 加载输入图片
-    Mat inputImage = imread(inputImagePath, IMREAD_COLOR);
-    if (inputImage.empty()) {
-        cerr << "Could not open or find the image: " << inputImagePath << endl;
-        return -1;
-    }
+    // 测量图像处理的时间
+    auto start_time = high_resolution_clock::now();
 
-    // 进行简单的图像处理：高斯模糊
-    Mat outputImage;
-    GaussianBlur(inputImage, outputImage, Size(15, 15), 0);
+    // 执行一些图像处理操作
 
-    // 保存输出图片
-    bool isSuccess = imwrite(outputImagePath, outputImage);
-    if (!isSuccess) {
-        cerr << "Failed to save the output image: " << outputImagePath << endl;
-        return -1;
-    }
+    // 1. 高斯模糊
+    Mat blurred_image;
+    GaussianBlur(image, blurred_image, Size(15, 15), 0);
 
-    cout << "Image processed successfully and saved to: " << outputImagePath << endl;
+    // 2. 边缘检测（Canny）
+    Mat edges;
+    Canny(blurred_image, edges, 100, 200);
+
+    // 3. 图像膨胀操作
+    Mat dilated_image;
+    dilate(edges, dilated_image, Mat(), Point(-1, -1), 1);
+
+    // 4. 图像腐蚀操作
+    Mat eroded_image;
+    erode(dilated_image, eroded_image, Mat(), Point(-1, -1), 1);
+
+    // 记录结束时间
+    auto end_time = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end_time - start_time);
+
+    cout << "Total Processing Time: " << duration.count() << " ms" << endl;
+
+    // 显示最终结果（可选，测试时可以注释掉）
+    imshow("Processed Image", eroded_image);
+    waitKey(0);
 
     return 0;
 }
