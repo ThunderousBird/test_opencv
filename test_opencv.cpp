@@ -21,6 +21,10 @@ int main() {
 
     // 显示原始图像（可选，测试时可以注释掉）
     // imshow("Original Image", image);
+<<<<<<< HEAD
+=======
+    // waitKey(1);
+>>>>>>> 1272d17ea50e00c465a00943bf77b9655971bfd2
 
     // 测量图像处理的时间
     auto start_time = high_resolution_clock::now();
