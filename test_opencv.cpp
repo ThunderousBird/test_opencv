@@ -7,9 +7,9 @@ using namespace std;
 using namespace chrono;
 
 int main() {
-    // 生成一个简单的图像（黑白渐变图像）
-    int width = 1920;  // 图像宽度
-    int height = 1080; // 图像高度
+    // 增加图像分辨率，使用 4K 图像（3840x2160）
+    int width = 3840;  // 图像宽度
+    int height = 2160; // 图像高度
     Mat image(height, width, CV_8UC1);
 
     // 填充图像（黑白渐变）
@@ -26,21 +26,28 @@ int main() {
     // 测量图像处理的时间
     auto start_time = high_resolution_clock::now();
 
-    // 执行一些图像处理操作
-
-    // 1. 高斯模糊
+    // 1. 高斯模糊（复杂操作）
     Mat blurred_image;
     GaussianBlur(image, blurred_image, Size(15, 15), 0);
 
-    // 2. 边缘检测（Canny）
+    // 2. 边缘检测（Canny） - 另一个计算密集型操作
     Mat edges;
     Canny(blurred_image, edges, 100, 200);
 
-    // 3. 图像膨胀操作
-    Mat dilated_image;
-    dilate(edges, dilated_image, Mat(), Point(-1, -1), 1);
+    // 3. 卷积操作：测试复杂矩阵运算
+    Mat kernel = (Mat_<float>(3, 3) << 1, 1, 1, 1, 1, 1, 1, 1, 1);  // 3x3 卷积核
+    Mat convolved_image;
+    filter2D(image, convolved_image, -1, kernel);
 
-    // 4. 图像腐蚀操作
+    // 4. 矩阵变换：图像缩放（另一种计算密集型操作）
+    Mat resized_image;
+    resize(convolved_image, resized_image, Size(width / 2, height / 2));  // 图像缩放为原来的一半
+
+    // 5. 图像膨胀操作
+    Mat dilated_image;
+    dilate(resized_image, dilated_image, Mat(), Point(-1, -1), 1);
+
+    // 6. 图像腐蚀操作
     Mat eroded_image;
     erode(dilated_image, eroded_image, Mat(), Point(-1, -1), 1);
 
